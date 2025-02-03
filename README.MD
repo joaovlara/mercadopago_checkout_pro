@@ -1,0 +1,1 @@
+https://www.mercadopago.com.br/partners/developers/certifications/checkout-pro
