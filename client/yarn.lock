@@ -409,6 +409,18 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
+"@mercadopago/sdk-js@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@mercadopago/sdk-js/-/sdk-js-0.0.3.tgz#f54eee5faa7d8d7253b5c03b0ef09dcb8229698a"
+  integrity sha512-kO48DNLHdfFAp3on12nuKdqNlEmw1x3+nM6wLd04BdWOXoFcAhkNMQV3AyUIanXdO/bB/dENakdacLT29297EQ==
+
+"@mercadopago/sdk-react@^0.0.23":
+  version "0.0.23"
+  resolved "https://registry.yarnpkg.com/@mercadopago/sdk-react/-/sdk-react-0.0.23.tgz#c612b4f49aba45d9cf152be411edd401d7dcf80f"
+  integrity sha512-YdIiSBWNCdcKEK63WkLhU5a4+25EqRrXYXMJ7SJZNtAPrHkdl9sPX2AgB4VopyrDouaErtylNqkk9xe4IRQOhQ==
+  dependencies:
+    "@mercadopago/sdk-js" "^0.0.3"
+
 "@rollup/rollup-android-arm-eabi@4.34.1":
   version "4.34.1"
   resolved "https://registry.yarnpkg.com/@rollup/rollup-android-arm-eabi/-/rollup-android-arm-eabi-4.34.1.tgz#a09cb0718297a2f0cc7f9b4dfca4d08753ea5c9b"
