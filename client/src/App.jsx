@@ -33,10 +33,10 @@ const App = () => {
   };
 
   return (
-    <Container>
-      <ProductList products={products} addToCart={addToCart} />
-      <Cart cart={cart} updateQuantity={updateQuantity} handlePurchase={handlePurchase} />
-    </Container>
+      <Container>
+        <ProductList products={products} addToCart={addToCart} />
+        <Cart cart={cart} updateQuantity={updateQuantity} handlePurchase={handlePurchase} />
+      </Container>
   );
 };
 
