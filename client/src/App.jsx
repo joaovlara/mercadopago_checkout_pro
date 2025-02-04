@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import { Container, ProductList, Cart, CartItem, Product, QuantitySelect, BuyButton } from "./assets/styles";
-import products from "./data/items";
+import React, { useState } from 'react';
+import { Container } from './assets/styles';
+import products from './data/items';
+import ProductList from './components/ProductList';
+import Cart from './components/Cart';
 
 const App = () => {
   const [cart, setCart] = useState([]);
@@ -27,46 +29,13 @@ const App = () => {
   };
 
   const handlePurchase = () => {
-    alert("Compra realizada com sucesso!");
-};
+    alert('Compra realizada com sucesso!');
+  };
 
   return (
     <Container>
-      <ProductList>
-        <h2>Produtos</h2>
-        {products.map((product) => (
-          <Product key={product.id} onClick={() => addToCart(product)}>
-            <span>{product.name}</span>
-            <span>R$ {product.price}</span>
-          </Product>
-        ))}
-      </ProductList>
-      <Cart>
-        <h2>Carrinho</h2>
-        {cart.length > 0 ? (
-          <>
-            {cart.map((item) => (
-              <CartItem key={item.id}>
-                <span>{item.name}</span>
-                <QuantitySelect
-                  value={item.quantity}
-                  onChange={(e) => updateQuantity(item.id, e.target.value)}
-                >
-                  {[...Array(10).keys()].map((num) => (
-                    <option key={num + 1} value={num + 1}>
-                      {num + 1}
-                    </option>
-                  ))}
-                </QuantitySelect>
-                <span>R$ {item.price * item.quantity}</span>
-              </CartItem>
-            ))}
-            <BuyButton onClick={handlePurchase}>Comprar</BuyButton>
-          </>
-        ) : (
-          <p>Itens adicionados aparecerão aqui.</p>
-        )}
-      </Cart>
+      <ProductList products={products} addToCart={addToCart} />
+      <Cart cart={cart} updateQuantity={updateQuantity} handlePurchase={handlePurchase} />
     </Container>
   );
 };
