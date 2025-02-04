@@ -4,6 +4,9 @@ import products from './data/items';
 import ProductList from './components/ProductList';
 import Cart from './components/Cart';
 
+import { initMercadoPago } from '@mercadopago/sdk-react'
+initMercadoPago('ACESS_TOKEN');
+
 const App = () => {
   const [cart, setCart] = useState([]);
 
