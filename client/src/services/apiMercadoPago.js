@@ -3,21 +3,35 @@ import { ACCESS_TOKEN, INTEGRATOR_ID } from '../../@env';
 
 
 export const handleIntegrationMP = async () => {
-  const externalReference = uuidv4();
+  const externalReference = 'joaovdelara@gmail.com';
 
   const preferencia = {
-    "items": [
+   "items": [
+    {
+      "id": "1352",
+      "title": "Pessoas Normais - Sally Rooney",
+      "description": "Livro de Romance",
+      "picture_url": "~/assets/normalPeopleBook.jpg",
+      "quantity": 1,
+      "currency_id": "BRL",
+      "unit_price": 50
+    }
+  ],
+  "payment_methods": {
+    "excluded_payment_methods": [
       {
-        "id": "1352",
-        "title": "Produto Teste",
-        "description": "Descrição",
-        "picture_url": "~/assets/normalPeopleBook.jpg",
-        "quantity": 1,
-        "currency_id": "BRL",
-        "unit_price": 10
+        "id": "visa"
       }
     ],
-    "external_reference": externalReference
+    "installments": 6,
+  },
+  "back_urls": {
+    "success": "https://test.com/success",
+    "pending": "https://test.com/pending",
+    "failure": "https://test.com/failure"
+  },
+  "notification_url": "https://notificationurl.com",
+  "external_reference": externalReference
   };
 
   try {
