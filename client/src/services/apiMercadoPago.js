@@ -1,8 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
+import { ACCESS_TOKEN, INTEGRATOR_ID } from '../../@env';
 
-const requestOptions = {
-  'integratorId': '',
-  };
 
 export const handleIntegrationMP = async () => {
   const externalReference = uuidv4();
@@ -13,14 +11,14 @@ export const handleIntegrationMP = async () => {
         "id": "1352",
         "title": "Produto Teste",
         "description": "Descrição",
-        "picture_url": "https://www.myapp.com/myimage.jpg",
+        "picture_url": "~/assets/normalPeopleBook.jpg",
         "quantity": 1,
         "currency_id": "BRL",
         "unit_price": 10
       }
     ],
-    "external_reference": externalReference 
-  }
+    "external_reference": externalReference
+  };
 
   try {
     const response = await fetch('https://api.mercadopago.com/checkout/preferences', {
@@ -28,17 +26,16 @@ export const handleIntegrationMP = async () => {
       headers: {
         'Authorization': `Bearer ${ACCESS_TOKEN}`,
         'Content-Type': 'application/json',
-        'x-integrator-id': ''
+        'x-integrator-id': INTEGRATOR_ID
       },
       body: JSON.stringify(preferencia)
-    })
+    });
 
-    const data = await response.json()
+    const data = await response.json();
 
     return { init_point: data.init_point, external_reference: externalReference };
-
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 };
 
@@ -49,7 +46,7 @@ export const getPaymentIdByPreference = async (preferenceId) => {
       headers: {
         'Authorization': `Bearer ${ACCESS_TOKEN}`,
         'Content-Type': 'application/json',
-        'x-integrator-id': '',
+        'x-integrator-id': INTEGRATOR_ID,
       }
     });
 
@@ -71,13 +68,13 @@ export const checkPaymentStatus = async (paymentId) => {
       headers: {
         'Authorization': `Bearer ${ACCESS_TOKEN}`,
         'Content-Type': 'application/json',
-        'x-integrator-id': '',
+        'x-integrator-id': INTEGRATOR_ID,
       }
     });
 
     const data = await response.json();
 
-    return data.status; 
+    return data.status;
   } catch (error) {
     console.error(error);
     return null;

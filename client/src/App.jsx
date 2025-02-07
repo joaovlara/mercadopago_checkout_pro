@@ -7,32 +7,22 @@ import Cart from './components/Cart';
 import { handleIntegrationMP, checkPaymentStatus, getPaymentIdByPreference } from './services/apiMercadoPago';
 
 import { initMercadoPago } from '@mercadopago/sdk-react'
-initMercadoPago('PUBLIC_KEY');
+initMercadoPago('APP_USR-579c8a18-d8e2-479e-9c5b-2b688155e5c3');
 
 const App = () => {
   const [cart, setCart] = useState([]);
 
   const addToCart = (product) => {
-    setCart((prevCart) => {
-      const existingItem = prevCart.find((item) => item.id === product.id);
-      if (existingItem) {
-        return prevCart.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-        );
-      } else {
-        return [...prevCart, { ...product, quantity: 1 }];
-      }
-    });
+    const existingItem = cart.find((item) => item.id === product.id);
+  
+    if (existingItem) {
+      alert("Produto já adicionado ao carrinho!");
+      return;
+    }
+  
+    setCart([...cart, { ...product, quantity: 1 }]);
   };
-
-  const updateQuantity = (id, quantity) => {
-    setCart((prevCart) =>
-      prevCart.map((item) =>
-        item.id === id ? { ...item, quantity: Number(quantity) } : item
-      )
-    );
-  };
-
+  
   const handlePurchase = async () => {
     try {
       const response = await handleIntegrationMP();
@@ -56,7 +46,7 @@ const App = () => {
   return (
     <Container>
       <ProductList products={products} addToCart={addToCart} />
-      <Cart cart={cart} updateQuantity={updateQuantity} handlePurchase={handlePurchase} />
+      <Cart cart={cart} handlePurchase={handlePurchase} />
     </Container>
   );
 };
