@@ -4,8 +4,10 @@ import products from './data/items';
 import ProductList from './components/ProductList';
 import Cart from './components/Cart';
 
+import { handleIntegrationMP, checkPaymentStatus, getPaymentIdByPreference } from './services/apiMercadoPago';
+
 import { initMercadoPago } from '@mercadopago/sdk-react'
-initMercadoPago('ACESS_TOKEN');
+initMercadoPago('PUBLIC_KEY');
 
 const App = () => {
   const [cart, setCart] = useState([]);
@@ -31,15 +33,31 @@ const App = () => {
     );
   };
 
-  const handlePurchase = () => {
-    alert('Compra realizada com sucesso!');
+  const handlePurchase = async () => {
+    try {
+      const response = await handleIntegrationMP();
+      const { init_point, preference_id } = response;
+
+      window.open(init_point, "_blank");
+
+      const interval = setInterval(async () => {
+        const payment_id = await getPaymentIdByPreference(preference_id);
+        if (payment_id) {
+          const status = await checkPaymentStatus(payment_id);
+          setPaymentStatus(status);
+          clearInterval(interval);
+        }
+      }, 3000);
+    } catch (error) {
+      console.error("Erro ao iniciar pagamento", error);
+    }
   };
 
   return (
-      <Container>
-        <ProductList products={products} addToCart={addToCart} />
-        <Cart cart={cart} updateQuantity={updateQuantity} handlePurchase={handlePurchase} />
-      </Container>
+    <Container>
+      <ProductList products={products} addToCart={addToCart} />
+      <Cart cart={cart} updateQuantity={updateQuantity} handlePurchase={handlePurchase} />
+    </Container>
   );
 };
 
